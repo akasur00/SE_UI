@@ -3,14 +3,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import views.DemoView
+import views.ContentView
 
 @Composable
 @Preview
 fun App() {
   MaterialTheme {
-//    ContentView()
-    DemoView()
+    ContentView()
   }
 }
 
