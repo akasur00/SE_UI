@@ -3,6 +3,7 @@ package views
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -24,12 +25,21 @@ fun ContentView() {
   val formattedFullPrice = String.format("%.2f", fullPrice)
 
   Row(
-    horizontalArrangement = Arrangement.spacedBy(20.dp)
+    horizontalArrangement = Arrangement.spacedBy(20.dp),
+    modifier = Modifier.padding(20.dp)
 
   ) {
     Column (
-      verticalArrangement = Arrangement.spacedBy(20.dp)
+      verticalArrangement = Arrangement.spacedBy(20.dp),
+      modifier = Modifier
+        .clip(RoundedCornerShape(8.dp))
+        .background(color = Color(0xFFAEAFB1))
+        .padding(16.dp)
     ){
+      Text(
+        style = MaterialTheme.typography.headlineLarge,
+        text = "Gerichte"
+      )
       // PIZZA
       MealView(
         "Pizza",
@@ -47,41 +57,53 @@ fun ContentView() {
       )
     }
 
-    Column (
-      verticalArrangement = Arrangement.spacedBy(20.dp)
-    ) {
-      if (countPizza != 0) {
-        Row {
-          ShoppingBasket(
-            "Pizza", count = countPizza,
-            onCountChange = { newCount ->
-              countPizza -= newCount
-            }
-          )
+      Column(
+        verticalArrangement = Arrangement.spacedBy(20.dp),
+        modifier = Modifier
+          .clip(RoundedCornerShape(8.dp))
+          .background(color = Color(0xFFAEAFB1))
+          .width(200.dp)
+          .padding(16.dp)
+      ) {
+        Text(
+          style = MaterialTheme.typography.headlineLarge,
+          text = "Warenkorb"
+        )
+        if (countPizza != 0) {
+          Row {
+            ShoppingBasket(
+              "Pizza", count = countPizza,
+              onCountChange = { newCount ->
+                countPizza -= newCount
+              }
+            )
+          }
         }
-      }
-      if (countPasta != 0) {
-        Row {
-          ShoppingBasket(
-            "Pasta", count = countPasta,
-            onCountChange = { newCount ->
-              countPasta -= newCount
-            }
-          )
+        if (countPasta != 0) {
+          Row {
+            ShoppingBasket(
+              "Pasta", count = countPasta,
+              onCountChange = { newCount ->
+                countPasta -= newCount
+              }
+            )
+          }
         }
-      }
 
-      if (fullPrice != 0.00 ) {
-        Row(
-          modifier = Modifier
-            .clip(RoundedCornerShape(8.dp))
-            .background(color = Color.Green)
-            .padding(8.dp)
-        ) {
-          Text(text = "Price: $formattedFullPrice")
+
+          Row(
+            modifier = Modifier
+              .clip(RoundedCornerShape(8.dp))
+
+              .padding(8.dp)
+          ) {
+            Text(
+              style = MaterialTheme.typography.titleLarge,
+              text = "Preis: $formattedFullPrice")
+          }
         }
-      }
-    }
+
+
   }
 }
 
