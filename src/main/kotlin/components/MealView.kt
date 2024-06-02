@@ -21,12 +21,16 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun MealView(mealName: String, ingredients: List<String>, onCountChange: (Int) -> Unit, price: Double) {
   val countMealAdd = remember { mutableStateOf(0) }
-  Row (
+  val maxIngredientsPerLine = 4
+
+  Row(
     modifier = Modifier
       .clip(RoundedCornerShape(8.dp))
-      .background(color = Color.LightGray),
-    verticalAlignment = Alignment.CenterVertically
-    ) {
+      .background(color = Color(0xFFEADFDB))
+      .padding(16.dp),
+    verticalAlignment = Alignment.CenterVertically,
+    horizontalArrangement = Arrangement.SpaceBetween
+  ) {
     Column {
       Text(
         style = MaterialTheme.typography.titleLarge,
@@ -35,10 +39,22 @@ fun MealView(mealName: String, ingredients: List<String>, onCountChange: (Int) -
       Row(
         horizontalArrangement = Arrangement.SpaceBetween,
       ) {
-        Text(text = "Zutaten: ${ingredients.joinToString(separator = ", ")}")
+        Column {
+          Text(text = "Zutaten: ")
+        }
+        Column {
+          Text(text = ingredients.take(maxIngredientsPerLine).joinToString(separator = ", "))
+          if (ingredients.size > maxIngredientsPerLine) {
+            Row(
+              horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+              Text(text = ingredients.drop(maxIngredientsPerLine).joinToString(separator = ", "))
+            }
+          }
+        }
       }
     }
-    Spacer(modifier = Modifier.width(16.dp))
+    Spacer(modifier = Modifier.padding(6.dp))
     IconButton(onClick = {
       countMealAdd.value = 1
       onCountChange(countMealAdd.value)
@@ -47,3 +63,4 @@ fun MealView(mealName: String, ingredients: List<String>, onCountChange: (Int) -
     }
   }
 }
+

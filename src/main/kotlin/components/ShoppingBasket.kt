@@ -1,8 +1,7 @@
 package components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -24,19 +23,25 @@ fun ShoppingBasket(shoppingMealName: String, count: Int, onCountChange: (Int) ->
     Row (
         modifier = Modifier
             .clip(RoundedCornerShape(8.dp))
-            .background(color = Color.Gray)
+            .background(color = Color(0xFFD8C2B5))
+            .width(150.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
+        Column {
         Text(
             style = MaterialTheme.typography.titleLarge,
             modifier = Modifier.padding(8.dp),
             text = "$shoppingMealName $count"
         )
-
+        }
+        Column (
+        ) {
         IconButton(onClick = {
             countMealRemove.value = 1
             onCountChange(countMealRemove.value)
         }) {
             Icon(imageVector = Icons.Filled.Delete, contentDescription = null)
+        }
         }
     }
 }
