@@ -27,7 +27,8 @@ fun MealView(mealName: String, ingredients: List<String>, onCountChange: (Int) -
     modifier = Modifier
       .clip(RoundedCornerShape(8.dp))
       .background(color = Color(0xFFEADFDB))
-      .padding(16.dp),
+      .padding(16.dp)
+      .width(280.dp),
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.SpaceBetween
   ) {
