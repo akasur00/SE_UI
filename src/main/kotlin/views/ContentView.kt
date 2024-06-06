@@ -29,7 +29,7 @@ fun ContentView() {
       Row(horizontalArrangement = Arrangement.spacedBy(horizontalSpaceDP.dp))
       {
         // Gerichte
-        MealAreaView("Gerichte", 16, 8, 0xFFAEAFB1, 300)
+        MealAreaView("Gerichte", 16, 8, 0xFFAEAFB1, 320)
         {
           // PIZZA
           MealView(
@@ -49,7 +49,7 @@ fun ContentView() {
         }
 
         // Warenkorb
-        MealAreaView("Warenkorb", 16, 8, 0xFFAEAFB1, 300)
+        MealAreaView("Warenkorb", 16, 8, 0xFFAEAFB1, 320)
         {
           if (countPizza != 0) {
             Row {

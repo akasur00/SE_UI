@@ -27,7 +27,7 @@ fun OrderSummaryView(
       Row(horizontalArrangement = Arrangement.spacedBy(horizontalSpaceDP.dp))
       {
         //Bestellung
-        MealAreaView("Bestellung:", 16, 8, 0xFFAEAFB1, 300)
+        MealAreaView("Bestellung:", 16, 8, 0xFFAEAFB1, 320)
         {
           Text(
             style = MaterialTheme.typography.titleLarge,
@@ -44,7 +44,7 @@ fun OrderSummaryView(
         }
 
         // Bestellstatus
-        MealAreaView("Status:", 16, 8, 0xFFAEAFB1, 300)
+        MealAreaView("Status:", 16, 8, 0xFFAEAFB1, 320)
         {
           Text(text = "Angenommen", style = MaterialTheme.typography.titleMedium)
           Text(text = "Bearbeitet von: Hannes", style = MaterialTheme.typography.titleSmall)
