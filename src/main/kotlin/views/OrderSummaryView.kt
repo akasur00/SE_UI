@@ -1,18 +1,14 @@
 package views
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.OutlinedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import components.ButtonType
+import components.CustomButton
+import components.MealAreaView
 
 @Composable
 fun OrderSummaryView(
@@ -21,73 +17,61 @@ fun OrderSummaryView(
   fullPrice: String,
   toggleView: () -> Unit
 ) {
+  val horizontalSpaceDP = 20
+
   var showOrderPlacedMessage by remember { mutableStateOf(false) }
   if (!showOrderPlacedMessage) {
-    Column {
-      Row(
-      ) {
-        Row(
-          modifier = Modifier.padding(10.dp)
-            .clip(RoundedCornerShape(10.dp))
-            .background(Color(0xFFAEAFB1))
-            .padding(10.dp)
-        ) {
-          Column {
-            Text(text = "Bestellung:", style = MaterialTheme.typography.titleLarge, fontSize = 30.sp)
-            Text(
-              style = MaterialTheme.typography.titleLarge,
-              text = "Pizza: $countPizza"
-            )
-            Text(
-              style = MaterialTheme.typography.titleLarge,
-              text = "Pasta: $countPasta"
-            )
-            Text(
-              style = MaterialTheme.typography.titleLarge,
-              text = "Preis: $fullPrice"
-            )
-          }
+
+    Column(modifier = Modifier.padding(20.dp))
+    {
+      Row(horizontalArrangement = Arrangement.spacedBy(horizontalSpaceDP.dp))
+      {
+        //Bestellung
+        MealAreaView("Bestellung:", 16, 8, 0xFFAEAFB1, 300)
+        {
+          Text(
+            style = MaterialTheme.typography.titleLarge,
+            text = "Pizza: $countPizza"
+          )
+          Text(
+            style = MaterialTheme.typography.titleLarge,
+            text = "Pasta: $countPasta"
+          )
+          Text(
+            style = MaterialTheme.typography.titleLarge,
+            text = "Preis: $fullPrice €"
+          )
         }
-        Column(
-          modifier = Modifier.padding(10.dp)
-            .clip(RoundedCornerShape(10.dp))
-            .background(Color(0xFFAEAFB1))
-            .padding(10.dp)
-        ) {
-          Text(text = "Status:", style = MaterialTheme.typography.titleLarge, fontSize = 30.sp)
+
+        // Bestellstatus
+        MealAreaView("Status:", 16, 8, 0xFFAEAFB1, 300)
+        {
           Text(text = "Angenommen", style = MaterialTheme.typography.titleMedium)
           Text(text = "Bearbeitet von: Hannes", style = MaterialTheme.typography.titleSmall)
         }
       }
 
       Row(
-        modifier = Modifier.padding(10.dp),
-        horizontalArrangement = Arrangement.spacedBy(20.dp)
+        horizontalArrangement = Arrangement.spacedBy(horizontalSpaceDP.dp)
       ) {
+        CustomButton(onButtonClick = {showOrderPlacedMessage = true}, "Bestellung Aufgaben", ButtonType.FORWARD)
 
-        OutlinedButton(onClick = {
-          showOrderPlacedMessage = true
-        }) {
-          Text(text = "Bestellung Aufgaben")
-        }
-        OutlinedButton(onClick = {
-          toggleView()
-        }) {
-          Text(text = "Bestellung Stornierern")
-        }
+        CustomButton(onButtonClick = {toggleView()}, "Bestellung Stornierern", ButtonType.BACKWARD)
       }
-
     }
   } else {
-    Row {
-      Text(
-        modifier = Modifier.fillMaxWidth()
-          .padding(top = 50.dp),
-        text = "Bestellung aufgegeben",
-        style = MaterialTheme.typography.titleLarge,
-        fontSize = 30.sp, color = Color.DarkGray,
-        textAlign = TextAlign.Center
-      )
+    Column(modifier = Modifier.padding(20.dp))
+    {
+      Row(horizontalArrangement = Arrangement.spacedBy(horizontalSpaceDP.dp))
+      {
+        //Bestellung
+        MealAreaView("Bestellung Aufgegeben", 16, 8, 0xFFAEAFB1, 350)
+        {}
+      }
+      Row(horizontalArrangement = Arrangement.spacedBy(horizontalSpaceDP.dp))
+      {
+        CustomButton(onButtonClick = {toggleView()}, "Neue Bestellung", ButtonType.BACKWARD)
+      }
     }
   }
 }
