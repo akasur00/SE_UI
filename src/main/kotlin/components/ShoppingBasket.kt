@@ -24,7 +24,7 @@ fun ShoppingBasket(shoppingMealName: String, count: Int, onCountChange: (Int) ->
         modifier = Modifier
             .clip(RoundedCornerShape(8.dp))
             .background(color = Color(0xFFD8C2B5))
-            .width(150.dp),
+            .width(300.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column {
