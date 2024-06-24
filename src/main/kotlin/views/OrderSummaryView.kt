@@ -9,34 +9,45 @@ import androidx.compose.ui.unit.dp
 import components.ButtonType
 import components.CustomButton
 import components.MealAreaView
+import model.WarenkorbItem
 
 @Composable
 fun OrderSummaryView(
-  countPizza: Int,
-  countPasta: Int,
+  warenkorb: List<WarenkorbItem>,
   fullPrice: String,
-  toggleView: () -> Unit
+  toggleView: () -> Unit,
+  clearWarenkorb: () -> Unit
 ) {
   val horizontalSpaceDP = 20
+  val columnHeight = 500.dp // Feste Höhe für die Spalten
+
 
   var showOrderPlacedMessage by remember { mutableStateOf(false) }
   if (!showOrderPlacedMessage) {
 
     Column(modifier = Modifier.padding(20.dp))
     {
-      Row(horizontalArrangement = Arrangement.spacedBy(horizontalSpaceDP.dp))
+      Row(
+        horizontalArrangement = Arrangement.spacedBy(horizontalSpaceDP.dp),
+        modifier = Modifier.height(columnHeight)
+      )
       {
         //Bestellung
         MealAreaView("Bestellung:", 16, 8, 0xFFAEAFB1, 320)
         {
-          Text(
-            style = MaterialTheme.typography.titleLarge,
-            text = "Pizza: $countPizza"
-          )
-          Text(
-            style = MaterialTheme.typography.titleLarge,
-            text = "Pasta: $countPasta"
-          )
+
+          warenkorb.forEach { item ->
+            Row(
+              modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 4.dp),
+              horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+              Text(text = "${item.gericht.name} x${item.anzahl}")
+              Text(text = String.format("%.2f €", item.gericht.preis * item.anzahl))
+            }
+          }
+
           Text(
             style = MaterialTheme.typography.titleLarge,
             text = "Preis: $fullPrice €"
@@ -62,7 +73,10 @@ fun OrderSummaryView(
   } else {
     Column(modifier = Modifier.padding(20.dp))
     {
-      Row(horizontalArrangement = Arrangement.spacedBy(horizontalSpaceDP.dp))
+      Row(
+        horizontalArrangement = Arrangement.spacedBy(horizontalSpaceDP.dp),
+        modifier = Modifier.height(columnHeight)
+      )
       {
         //Bestellung
         MealAreaView("Bestellung Aufgegeben", 16, 8, 0xFFAEAFB1, 350)
@@ -70,7 +84,10 @@ fun OrderSummaryView(
       }
       Row(horizontalArrangement = Arrangement.spacedBy(horizontalSpaceDP.dp))
       {
-        CustomButton(onButtonClick = {toggleView()}, "Neue Bestellung", ButtonType.BACKWARD)
+        CustomButton(onButtonClick = {
+          clearWarenkorb()
+          toggleView()
+        }, "Neue Bestellung", ButtonType.BACKWARD)
       }
     }
   }

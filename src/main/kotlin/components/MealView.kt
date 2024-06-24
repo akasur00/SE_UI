@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun MealView(mealName: String, ingredients: List<String>, onCountChange: (Int) -> Unit, price: Double) {
+fun MealView(mealName: String, ingredients: List<String>, onCountChange: (Int) -> Unit, price: String) {
   val countMealAdd = remember { mutableStateOf(0) }
   val maxIngredientsPerLine = 4
 
@@ -28,7 +28,7 @@ fun MealView(mealName: String, ingredients: List<String>, onCountChange: (Int) -
       .clip(RoundedCornerShape(8.dp))
       .background(color = Color(0xFFEADFDB))
       .padding(16.dp)
-      .width(280.dp),
+      .width(480.dp),
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.SpaceBetween
   ) {
